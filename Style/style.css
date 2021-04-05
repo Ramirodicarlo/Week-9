@@ -13,12 +13,16 @@ form div {
 a{
     color: black;
 }
+a:hover{
+    color:grey;
+}
 .button {
     margin: 2px;
     padding: 4px 6px;
 }
-#validationbutton{
+#validation-button{
     margin:5px 0px 10px 0px;
+    padding: 4px 6px;
 }
 #validation{
     display: none;
