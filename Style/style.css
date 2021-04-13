@@ -34,7 +34,7 @@ a:hover{
     padding: 4px 6px;
 }
 #validation{
-    display: none;
+    display: block;
     margin-top: 20px;
     padding: 2px;
     border: 5px solid grey;
