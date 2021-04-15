@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="./Style/reset.css">
     <link rel="stylesheet" href="./Style/style.css">
 </head>
 <header>
@@ -13,20 +14,16 @@
     </h1>
 </header>
 <body>
-    <form>
-        <div>
-            <label id="email" for="email">Email</label>
-        </div>
-        <div>
-            <input type="email" name="email" required>
-        </div>    
-        <div>
-            <label id="password" for="password">Password</label>
-        </div>
-        <div>
-            <input type="password" name="password" required>
-        </div>
-        <input type="submit" value="Login" name ="login" class="button">
+    <form id="form">
+        <label id="email" for="email">Email</label>
+        <input id="emaili" type="email" name="email" required>
+        <p id="pemail">
+        </p>
+        <label id="password" for="password">Password</label>
+        <input id="passwordi" type="password" name="password" required>
+        <p id="ppassword"> 
+        </p>
+        <input id="submit-b" type="submit" value="Login" name ="login" class="button">
         <p>
             You dont haver an account?
         </p>
@@ -40,4 +37,5 @@
     </div>
 </body>
 <script src="./Js/login.js"></script>
+<script src="./Js/login-submit.js"></script>
 </html>

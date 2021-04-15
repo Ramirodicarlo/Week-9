@@ -1,4 +1,4 @@
-console.log('Runnig js to validate the diferents inputs');
+console.log('Runnig js to validate the diferents inputs values');
 var fnameElement = document.getElementById('fnamei');
 var emailElement = document.getElementById('emaili');
 var passElement = document.getElementById('passwordi');
@@ -69,7 +69,7 @@ passElement.onblur = function validatePassword(){
         var check = true;
     }
     else{
-        var pValiPass = "Password must contein numbers or letters.</br>" ;
+        var pValiPass = "Password must contain numbers or letters.</br>" ;
         var check = false;
     }
     if (lengthPass > 7){
@@ -85,11 +85,11 @@ passElement.onblur = function validatePassword(){
         return pas = passElement.value;
     };   
 }
-passElement.onfocus = function removeFullName(){
+passElement.onfocus = function removePasword(){
     document.getElementById("ppassword").innerHTML = "";
 };
 
-conPassElement.onblur = function validatePassword(){
+conPassElement.onblur = function validateConPassword(){
     var passwordC = conPassElement.value;
     var passwordA = passElement.value;
     if(passwordA == passwordC){
@@ -105,14 +105,16 @@ conPassElement.onblur = function validatePassword(){
         return cpas = conPassElement.value
     };
 }
-conPassElement.onfocus = function removeFullName(){
+conPassElement.onfocus = function removeConPassword(){
     document.getElementById("cpassword").innerHTML = "";
 };
 
-
-
-submitB.addEventListener("submit",validation);
-function validation (){
-    return document.getElementById("validation").innerHTML = "Information submited:"+ fn + em 
-    + pas + cpas;
-}
+submitB.addEventListener ("submit", function(a){
+    a.preventDefault();
+    document.getElementById("validation").innerHTML = "Information submited:"+ fn +" "+ em 
+    +" "+ pas+" " + cpas;
+    fetch(`https://jsonplaceholder.typicode.com/users?email=${emailElement.value}`)
+    .then (response => response.json())
+    .then (data => console.log(data));
+    }
+)
