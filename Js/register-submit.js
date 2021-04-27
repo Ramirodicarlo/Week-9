@@ -10,6 +10,8 @@ var em = false;
 var pas = false;
 var cpas = false;
 
+
+
 fnameElement.onblur = function validateFullName(){
     var fname = fnameElement.value;
     var space = fname.match(/ /g);
@@ -41,18 +43,16 @@ fnameElement.onfocus = function removeFullName(){
 
 emailElement.onblur = function validateEmail(){
     var email = emailElement.value;
-    var aEmail = email.match(/@/g);
-
-    if(aEmail !== null){
+    var validE = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var aa = validE.test(email) ? true : false
+    if(aa){
         var eAEmail ="";
-        var check= true;
     }
     else{
-        var eAEmail = "Email must have an \"@\" to be a valid email.</br>" ;
-        var check = false;
+        var eAEmail = "Email must enter a valid email.</br>" ;
     }
     document.getElementById("pemail").innerHTML = eAEmail;
-    if (check){
+    if (aa){
         return em = emailElement.value;
     };
 }
@@ -112,9 +112,20 @@ conPassElement.onfocus = function removeConPassword(){
 submitB.addEventListener ("submit", function(a){
     a.preventDefault();
     document.getElementById("validation").innerHTML = "Information submited:"+ fn +" "+ em 
-    +" "+ pas+" " + cpas;
-    fetch(`https://jsonplaceholder.typicode.com/users?email=${emailElement.value}`)
-    .then (response => response.json())
-    .then (data => console.log(data));
-    }
+    +" "+ pas +" " + cpas;
+    fetch('http://localhost:4000/register',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                },
+            body: JSON.stringify({
+                name: fn,
+                email: em,
+                pass: pas,
+            })
+        })
+        .then (response => response.json())
+        .then (data => console.log(data))
+        .catch(error =>console.log("Error",error))
+        }
 )

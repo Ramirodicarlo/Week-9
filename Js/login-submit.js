@@ -6,20 +6,19 @@ var submitB = document.getElementById("form");
 var em = false;
 var pas = false;
 
+
 emailElement.onblur = function validateEmail(){
     var email = emailElement.value;
-    var aEmail = email.match(/@/g);
-
-    if(aEmail !== null){
+    var validE = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var aa = validE.test(email) ? true : false
+    if(aa){
         var eAEmail ="";
-        var check= true;
     }
     else{
-        var eAEmail = "Email must have an \"@\" to be a valid email.</br>" ;
-        var check = false;
+        var eAEmail = "Email must enter a valid email.</br>" ;
     }
     document.getElementById("pemail").innerHTML = eAEmail;
-    if (check){
+    if (aa){
         return em = emailElement.value;
     };
 }
@@ -58,9 +57,20 @@ passElement.onfocus = function removeFullName(){
 
 submitB.addEventListener ("submit", function(a){
     a.preventDefault();
-    document.getElementById("validation").innerHTML = "Information submited:"+ em +" "+ pas;
-    fetch(`https://jsonplaceholder.typicode.com/users?email=${emailElement.value}`)
+    document.getElementById("validation").innerHTML = "Information submited:"+ em 
+    +" "+ pas+" " ;
+    fetch('http://localhost:4000/login',{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+            },
+        body: JSON.stringify({
+            email: emailElement.value,
+            pass: passElement.value,
+        })
+    })
     .then (response => response.json())
-    .then (data => console.log(data));
+    .then(data => console.log(data))
+    .catch(error => console.log('Error:', error))
     }
 )
