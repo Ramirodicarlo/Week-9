@@ -111,21 +111,26 @@ conPassElement.onfocus = function removeConPassword(){
 
 submitB.addEventListener ("submit", function(a){
     a.preventDefault();
-    document.getElementById("validation").innerHTML = "Information submited:"+ fn +" "+ em 
-    +" "+ pas +" " + cpas;
-    fetch('http://localhost:4000/register',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-                },
-            body: JSON.stringify({
-                name: fn,
-                email: em,
-                pass: pas,
+    if(fn !== false && em !== false  && pas !== false && cpas !== false){
+        document.getElementById("validation").innerHTML = "Information submited:"+ fn +" "+ em 
+        +" "+ pas +" " + cpas;
+        fetch('http://localhost:4000/register',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify({
+                    name: fn,
+                    email: em,
+                    pass: pas,
+                })
             })
-        })
-        .then (response => response.json())
-        .then (data => console.log(data))
-        .catch(error =>console.log("Error",error))
-        }
-)
+            .then (response => response.json())
+            .then (data => console.log(data))
+            .catch(error =>console.log("Error",error))
+            }
+    else {
+        submitB.removeEventListener("submit",submitB)
+        document.getElementById("validation").innerHTML = "You had enter wrong information";
+    }
+ })

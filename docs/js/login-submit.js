@@ -49,7 +49,10 @@ passElement.onblur = function validatePassword(){
     document.getElementById("ppassword").innerHTML = pValiPass + paLength
     if (check && check2){
         return pas = passElement.value;
-    };   
+    } 
+    else {
+        return pas = false
+    }
 }
 passElement.onfocus = function removeFullName(){
     document.getElementById("ppassword").innerHTML = "";
@@ -57,20 +60,26 @@ passElement.onfocus = function removeFullName(){
 
 submitB.addEventListener ("submit", function(a){
     a.preventDefault();
-    document.getElementById("validation").innerHTML = "Information submited:"+ em 
-    +" "+ pas+" " ;
-    fetch('http://localhost:4000/login',{
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-            },
-        body: JSON.stringify({
-            email: emailElement.value,
-            pass: passElement.value,
+    if(pas !== false && em !== false){
+        document.getElementById("validation").innerHTML = "Information submited:"+ em 
+        +" "+ pas+" " ;
+        fetch('http://localhost:4000/login',{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+                },
+            body: JSON.stringify({
+                email: emailElement.value,
+                pass: passElement.value,
+            })
         })
-    })
-    .then (response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log('Error:', error))
+        .then (response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log('Error:', error))
     }
-)
+
+    else {
+        submitB.removeEventListener("submit",submitB)
+        document.getElementById("validation").innerHTML = "You had enter wrong information";
+    }
+})
